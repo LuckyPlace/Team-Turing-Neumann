@@ -22,7 +22,7 @@ def infix_to_postfix(expr, stack, number, postfix): # infix를 postfix로 바꾸
     return postfix
 
 
-def calc_postfix(expr):     # infix_to_postfix함수로부터 리턴된 postfix를 계산하는 함수
+def calc_postfix(expr, number):     # infix_to_postfix함수로부터 리턴된 postfix를 계산하는 함수
     result = 0
 
     for token in postfix:
@@ -53,6 +53,6 @@ if __name__ == "__main__":
             break
         if(temp == '='):        # '='가 입력된 경우 지금까지 입력된 expr을 함수에 전달해 계산
             expr = infix_to_postfix(expr, stack, number, postfix)
-            print("{:d}".format(calc_postfix(expr)))
+            print("{:d}".format(calc_postfix(expr, number)))
             break
         expr.append(temp)
