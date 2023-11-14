@@ -46,14 +46,25 @@ if __name__ == "__main__":
     postfix = []        # infix를 postfix로 바꾼 표현을 저장하는 list 선언
     tmp = []            # calc_postfix()함수에서 사용할 stack 선언
     ans = 0             # 답 임시 저장 변수
+    is_operator = False     # 333++같이 연속으로 숫자가 나오는 경우를 막기 위한 변수
+    is_right = True
+    operators = ['+', '-', '*']
     while True :
         try:
             temp = input()
+            if temp in operators and not is_operator:
+                is_right = False
+            if(is_operator):
+                is_operator = False
+            else:
+                is_operator = True
             if(temp == "1225"):     # 이스터에그 : 크리스마스인 1225를 입력하면 발생
                 print("허허 메리 크리스마스")
                 break
             if(temp == '='):        # '='가 입력된 경우 지금까지 입력된 expr을 함수에 전달해 계산
                 if not expr:       # 아무것도 입력하지 않고 '='를 입력한 경우
+                    print_error()
+                if not is_right:
                     print_error()
                 infix_to_postfix(expr, postfix)
                 ans = calc_postfix(postfix, tmp)
