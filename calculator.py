@@ -1,3 +1,5 @@
+import sys
+
 def op_priority(op):       # 연산자의 우선순위를 결정하는 함수
     if op in ['+', '-']:
         return 1
@@ -17,12 +19,8 @@ def infix_to_postfix(expr, postfix): # infix를 postfix로 바꾸는 함수
     while stack:
         postfix.append(stack.pop())     # stack에 남아있는 연산자들을 postfix list에 추가한다.
 
-
-
-def calc_postfix(postfix):     # infix_to_postfix함수로부터 리턴된 postfix를 계산하는 함수
+def calc_postfix(postfix, tmp):     # infix_to_postfix함수로부터 리턴된 postfix를 계산하는 함수
     result = 0
-    tmp = []    #tmp_stack
-
     for token in postfix:
         if len(token) == 1 and token[0] in ['+', '-', '*']:
             second = tmp.pop()
@@ -37,13 +35,17 @@ def calc_postfix(postfix):     # infix_to_postfix함수로부터 리턴된 postf
             tmp.append(result)
         else:
             tmp.append(int(token))
-        
     return result
 
+def print_error():
+    print("ERROR!")
+    sys.exit()
 
 if __name__ == "__main__":
     expr = []           # 식을 저장하기 위해 list 선언
     postfix = []        # infix를 postfix로 바꾼 표현을 저장하는 list 선언
+    tmp = []            # calc_postfix()함수에서 사용할 stack 선언
+    ans = 0             # 답 임시 저장 변수
     while True :
         try:
             temp = input()
@@ -52,12 +54,13 @@ if __name__ == "__main__":
                 break
             if(temp == '='):        # '='가 입력된 경우 지금까지 입력된 expr을 함수에 전달해 계산
                 if not expr:       # 아무것도 입력하지 않고 '='를 입력한 경우
-                    print("ERROR!")
-                    break
+                    print_error()
                 infix_to_postfix(expr, postfix)
-                print("{:d}".format(calc_postfix(postfix)))
+                ans = calc_postfix(postfix, tmp)
+                if len(tmp) > 1:        # tmp list가 1보다 클 경우 숫자가 비정상적으로 많다.
+                    print_error()
+                print(ans)
                 break
             expr.append(temp)
         except Exception:
-            print("ERROR!")
-            break
+            print_error()
