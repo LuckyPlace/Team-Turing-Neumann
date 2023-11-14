@@ -5,21 +5,92 @@ def op_priority(op):
         return 2
 
 def infix_to_postfix(expr, stack, number, postfix):
+    stack2 = []
+    temp = []
     for token in expr:
         if(len(token) == 1):
             if token[0] in ['+', '-' ,'*']:
                 while stack and op_priority(stack[-1]) >= op_priority(token):
                     postfix.append(stack.pop())
+                    temp.append(stack2.pop())
                 stack.append(token)
             else:
-                number.append(int(token))
+                stack2.append(int(token))
         else:
-            number.append(int(token))
+            stack2.append(int(token))
 
     while stack:
         postfix.append(stack.pop())
 
+    while stack2:
+        temp.append(stack2.pop())
+
+    while temp:
+        number.append(temp.pop())
+
     return postfix
+
+def calc_postfix(postfix, number):
+    result = 0
+
+    for token in postfix:
+        first = number.pop()
+        second = number.pop()
+        op = token[0]
+        if op == '+':
+            result = first + second
+        elif op == '-':
+            print("error")
+            result = first - second
+        elif op == '*':
+            result = first * second
+        number.insert(0, result)
+        
+    return result
+
+
+if __name__ == "__main__":
+
+    postfix = []
+    stack = []
+    number = []
+    expr = []
+    bo = 0
+
+    while True:
+
+        #testfunction(number, postfix)
+        #break
+
+        temp = input()
+
+        if bo :
+               if not temp in ['+', '-' ,'*']: 
+                    if temp[0] == '-':
+                        temp.replace('-','')
+                        bo = 0
+                    else:
+                        temp = "-" + temp
+                        bo = 0
+                        
+        if temp == '-':
+            expr.append('+')
+            bo = 1
+            continue      
+        if(temp == "1225"):
+            print("허허 메리 크리스마스")
+            break
+        if(temp == '='):
+            infix_to_postfix(expr, stack, number, postfix)
+            if not len(number) - 1 ==  len(postfix):
+                print("Error")
+            print("{:d}".format(calc_postfix(postfix, number)))
+            break
+        if not temp in ['+', '-' ,'*']:
+            assert float(temp)%1 == 0, "Error"
+                
+        expr.append(temp)
+
 
 def clear(number, postfix):
     postfix.clear()
@@ -99,51 +170,3 @@ def testfunction(number, postfix):
 
 
     print("test complete, No abnormality found")
-
-
-def calc_postfix(postfix, number):
-    result = 0
-
-    for token in postfix:
-        second = number.pop()
-        first = number.pop()
-        op = token[0]
-        if op == '+':
-            result = first + second
-        elif op == '-':
-            result = first - second
-        elif op == '*':
-            result = first * second
-        number.append(result)
-        
-
-    return result
-
-
-if __name__ == "__main__":
-
-    postfix = []
-    stack = []
-    number = []
-    expr = []
-
-    while True :
-
-        testfunction(number, postfix)
-        break
-
-        temp = input()
-        temp2 = temp
-        if(temp == "1225"):
-            print("허허 메리 크리스마스")
-            break
-        if(temp == '='):
-            infix_to_postfix(expr, stack, number, postfix)
-            print("{:d}".format(calc_postfix(expr, number)))
-            break
-        if not temp in ['+', '-' ,'*']:
-            assert float(temp)%1 == 0, "Error"
-                
-        expr.append(temp)
-
-
