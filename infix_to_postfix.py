@@ -1,16 +1,19 @@
-def infix_to_postfix(expr):
-    postfix = []
-    stack = []
+postfix = []
+stack = []
+number = []
 
-    #음수 구현 아이디어 : 숫자가 아니면서 한 글자면 연산자로 판정, 그 외에는 피연산자(숫자)로 판정
+def infix_to_postfix(expr):
+
     for token in expr:
-        if token[0] in ['+', '-' ,'*']:
-            #op_priority(): 연산자들의 우선순위 반환하는 함수
-            while stack and op_priority(stack[-1]) >= op_priority(token):
-                postfix.append(stack.pop())
-            stack.append(token)
+        if(len(token) == 1):
+            if token[0] in ['+', '-' ,'*']:
+                while stack and op_priority(stack[-1]) >= op_priority(token):
+                    postfix.append(stack.pop())
+                stack.append(token)
+            else:
+                number.append(int(token))
         else:
-            postfix.append(token)
+            number.append(int(token))
 
     while stack:
         postfix.append(stack.pop())
