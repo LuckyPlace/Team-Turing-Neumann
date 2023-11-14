@@ -8,7 +8,7 @@ def op_priority(op):       # 연산자의 우선순위를 결정하는 함수
 
 def infix_to_postfix(expr, stack, number, postfix): # infix를 postfix로 바꾸는 함수
     for token in expr:
-        if(len(token) == 1): #길이가 1인 경우 양의 정수이거나 연산자
+        if len(token) == 1: #길이가 1인 경우 양의 정수이거나 연산자
             if token[0] in ['+', '-' ,'*']:  # 연산자인 경우 연산자의 우선순위에 따라
                 while stack and op_priority(stack[-1]) >= op_priority(token):
                     postfix.append(stack.pop()) # 스택의 맨위에 있는 연산자가 더 크거나 같은 연산자일 때까지 stack에서 pop()한 것을 postfix list에 저장하고
@@ -49,11 +49,17 @@ if __name__ == "__main__":
     while True :
         try:
             temp = input()
-            if(temp == "1225"):     # 이스터에그 : 크리스마스인 1225를 입력하면 발생
+            if temp == "1225":     # 이스터에그 : 크리스마스인 1225를 입력하면 발생
                 print("허허 메리 크리스마스")
                 break
-            if(temp == '='):        # '='가 입력된 경우 지금까지 입력된 expr을 함수에 전달해 계산
+            if temp == '=':        # '='가 입력된 경우 지금까지 입력된 expr을 함수에 전달해 계산
+                if not expr:       # 아무것도 입력하지 않고 '='를 입력한 경우
+                    print("ERROR!")
+                    break
                 infix_to_postfix(expr, stack, number, postfix)
+                if len(number) -1 is not len(postfix): # 숫자의 개수 - 1 이 연산자의 개수와 같지 않을 경우
+                    print("ERROR!")
+                    break
                 print("{:d}".format(calc_postfix(postfix, number)))
                 break
             expr.append(temp)
