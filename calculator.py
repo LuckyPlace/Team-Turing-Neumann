@@ -1,14 +1,10 @@
-postfix = []        # infix를 postfix로 바꾼 표현을 저장하는 list 선언
-stack = []          # stack으로 활용하기 위한 list 선언
-number = []         # 정수만 따로 int형으로 저장하기 위해 list 선언
-
 def op_priority(op):       # 연산자의 우선순위를 결정하는 함수
     if op in ['+', '-']:
         return 1
     elif op == '*':        # '*' 연산자의 우선순위가 더 높으므로 1보다 더 큰 2를 리턴
         return 2
 
-def infix_to_postfix(expr): # infix를 postfix로 바꾸는 함수
+def infix_to_postfix(expr, stack, number, postfix): # infix를 postfix로 바꾸는 함수
     for token in expr:
         if(len(token) == 1): #길이가 1인 경우 양의 정수이거나 연산자
             if token[0] in ['+', '-' ,'*']:  # 연산자인 경우 연산자의 우선순위에 따라
@@ -45,8 +41,10 @@ def calc_postfix(expr):     # infix_to_postfix함수로부터 리턴된 postfix�
 
 
 if __name__ == "__main__":
-
-    expr = []
+    expr = []           # 식을 저장하기 위해 list 선언
+    postfix = []        # infix를 postfix로 바꾼 표현을 저장하는 list 선언
+    stack = []          # stack으로 활용하기 위한 list 선언
+    number = []         # 정수만 따로 int형으로 저장하기 위해 list 선언
     while True :
         temp = input()
         temp2 = temp
@@ -54,7 +52,7 @@ if __name__ == "__main__":
             print("허허 메리 크리스마스")
             break
         if(temp == '='):        # '='가 입력된 경우 지금까지 입력된 expr을 함수에 전달해 계산
-            expr = infix_to_postfix(expr)
+            expr = infix_to_postfix(expr, stack, number, postfix)
             print("{:d}".format(calc_postfix(expr)))
             break
         expr.append(temp)
