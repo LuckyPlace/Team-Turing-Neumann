@@ -1,5 +1,3 @@
-import sys
-
 def op_priority(op):       # 연산자의 우선순위를 결정하는 함수
     if op in ['+', '-']:
         return 1
