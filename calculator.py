@@ -19,10 +19,9 @@ def infix_to_postfix(expr, stack, number, postfix): # infix를 postfix로 바꾸
     while stack:
         postfix.append(stack.pop())     # stack에 남아있는 연산자들을 postfix list에 추가한다.
 
-    return postfix
 
 
-def calc_postfix(expr, number):     # infix_to_postfix함수로부터 리턴된 postfix를 계산하는 함수
+def calc_postfix(postfix, number):     # infix_to_postfix함수로부터 리턴된 postfix를 계산하는 함수
     result = 0
 
     for token in postfix:
@@ -47,12 +46,11 @@ if __name__ == "__main__":
     number = []         # 정수만 따로 int형으로 저장하기 위해 list 선언
     while True :
         temp = input()
-        temp2 = temp
         if(temp == "1225"):     # 이스터에그 : 크리스마스인 1225를 입력하면 발생
             print("허허 메리 크리스마스")
             break
         if(temp == '='):        # '='가 입력된 경우 지금까지 입력된 expr을 함수에 전달해 계산
-            expr = infix_to_postfix(expr, stack, number, postfix)
-            print("{:d}".format(calc_postfix(expr, number)))
+            infix_to_postfix(expr, stack, number, postfix)
+            print("{:d}".format(calc_postfix(postfix, number)))
             break
         expr.append(temp)
