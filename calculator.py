@@ -1,3 +1,5 @@
+import sys
+
 def op_priority(op):       # 연산자의 우선순위를 결정하는 함수
     if op in ['+', '-']:
         return 1
@@ -45,12 +47,16 @@ if __name__ == "__main__":
     stack = []          # stack으로 활용하기 위한 list 선언
     number = []         # 정수만 따로 int형으로 저장하기 위해 list 선언
     while True :
-        temp = input()
-        if(temp == "1225"):     # 이스터에그 : 크리스마스인 1225를 입력하면 발생
-            print("허허 메리 크리스마스")
+        try:
+            temp = input()
+            if(temp == "1225"):     # 이스터에그 : 크리스마스인 1225를 입력하면 발생
+                print("허허 메리 크리스마스")
+                break
+            if(temp == '='):        # '='가 입력된 경우 지금까지 입력된 expr을 함수에 전달해 계산
+                infix_to_postfix(expr, stack, number, postfix)
+                print("{:d}".format(calc_postfix(postfix, number)))
+                break
+            expr.append(temp)
+        except Exception:
+            print("ERROR!")
             break
-        if(temp == '='):        # '='가 입력된 경우 지금까지 입력된 expr을 함수에 전달해 계산
-            infix_to_postfix(expr, stack, number, postfix)
-            print("{:d}".format(calc_postfix(postfix, number)))
-            break
-        expr.append(temp)
