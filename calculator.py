@@ -12,7 +12,7 @@ def op_priority(op):       # 연산자의 우선순위를 결정하는 함수
 def infix_to_postfix(expr, postfix): # infix를 postfix로 바꾸는 함수
     stack = []          # stack으로 활용하기 위한 list 선언
     for token in expr:
-        if len(token) == 1 and token[0] in ['+', '-', '*']: # 연산자인 경우
+        if token in ['+', '-', '*']: # 연산자인 경우
             while stack and op_priority(stack[-1]) >= op_priority(token):
                 postfix.append(stack.pop()) # 스택의 맨위에 있는 연산자가 더 크거나 같은 연산자일 때까지 stack에서 pop()한 것을 postfix list에 저장하고
             stack.append(token) # stack에 현재 연산자를 넣어준다.
@@ -24,14 +24,13 @@ def infix_to_postfix(expr, postfix): # infix를 postfix로 바꾸는 함수
 
 def calc_postfix(postfix, tmp):     # postfix를 계산하는 함수
     result = 0
-    if len(postfix) == 1:   # 입력이 피연산자 하나로 끝나는 경우 ex. 5 = ?
-        for token in postfix:
-            tmp.append(token)
-            result = token
+    if len(postfix) == 1:   # 입력이 정수 하나인 경우 ex. 5 = ?
+        tmp.append(int(postfix[0]))
+        result = tmp[-1]
         return result
     
     for token in postfix:
-        if len(token) == 1 and token[0] in ['+', '-', '*']:
+        if token in ['+', '-', '*']:
             second = tmp.pop()
             first = tmp.pop()
             op = token[0]
