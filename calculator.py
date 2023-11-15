@@ -193,7 +193,7 @@ if __name__ == "__main__":
 
     while True :
         try:
-            testfunction(expr,postfix)     # test가 필요할 경우만 사용
+            #testfunction(expr,postfix)     # test가 필요할 경우만 사용
             temp = input()
             if temp in operators and not is_operator:   # 입력이 연산자이고 is_operator가 True가 아닌 경우
                 is_right = False        # 비정상적인 입력으로 판정하고 is_right에 False를 대입
