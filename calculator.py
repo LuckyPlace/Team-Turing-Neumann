@@ -12,18 +12,24 @@ def op_priority(op):       # 연산자의 우선순위를 결정하는 함수
 def infix_to_postfix(expr, postfix): # infix를 postfix로 바꾸는 함수
     stack = []          # stack으로 활용하기 위한 list 선언
     for token in expr:
-        if len(token) == 1 and token[0] in ['+', '-', '*']: #길이가 1인 경우 양의 정수이거나 연산자
+        if len(token) == 1 and token[0] in ['+', '-', '*']: # 연산자인 경우
             while stack and op_priority(stack[-1]) >= op_priority(token):
                 postfix.append(stack.pop()) # 스택의 맨위에 있는 연산자가 더 크거나 같은 연산자일 때까지 stack에서 pop()한 것을 postfix list에 저장하고
-            stack.append(token) # stack에 현재 값을 넣어준다.
-        else:   #나머지의 경우
-            postfix.append(token)     # 음의 정수인 경우 int형으로 바꿔 number list에 저장한다.
+            stack.append(token) # stack에 현재 연산자를 넣어준다.
+        else:   # 피연산자인 경우
+            postfix.append(token)     # 피연산자인 경우 postfix list에 저장한다.
 
     while stack:
         postfix.append(stack.pop())     # stack에 남아있는 연산자들을 postfix list에 추가한다.
 
-def calc_postfix(postfix, tmp):     # infix_to_postfix함수로부터 리턴된 postfix를 계산하는 함수
+def calc_postfix(postfix, tmp):     # postfix를 계산하는 함수
     result = 0
+    if len(postfix) == 1:   # 입력이 피연산자 하나로 끝나는 경우 ex. 5 = ?
+        for token in postfix:
+            tmp.append(token)
+            result = token
+        return result
+    
     for token in postfix:
         if len(token) == 1 and token[0] in ['+', '-', '*']:
             second = tmp.pop()
@@ -37,7 +43,7 @@ def calc_postfix(postfix, tmp):     # infix_to_postfix함수로부터 리턴된 
                 result = first * second
             tmp.append(result)
         else:
-            tmp.append(int(token))
+            tmp.append(int(token))  # 올바른 수식이라면 계산 결과값을 tmp 스택에도 저장
     return result
 
 def print_error():
@@ -187,7 +193,7 @@ if __name__ == "__main__":
 
     while True :
         try:
-            #testfunction(expr,postfix)     # test가 필요할 경우만 사용
+            testfunction(expr,postfix)     # test가 필요할 경우만 사용
             temp = input()
             if temp in operators and not is_operator:   # 입력이 연산자이고 is_operator가 True가 아닌 경우
                 is_right = False        # 비정상적인 입력으로 판정하고 is_right에 False를 대입
