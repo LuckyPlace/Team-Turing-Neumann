@@ -35,11 +35,9 @@ def calc_postfix(postfix, tmp):     # infix_to_postfix함수로부터 리턴된 
                 result = first - second
             elif op == '*':     # *인 경우 계산
                 result = first * second
-            #print("first = " + str(first) + " second = " + str(second) + " result = " + result)
             tmp.append(result)
         else:
             tmp.append(int(token))
-
     return result
 
 def print_error():
