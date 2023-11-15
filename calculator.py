@@ -187,12 +187,12 @@ if __name__ == "__main__":
 
     while True :
         try:
-            testfunction(expr,postfix)
+            #testfunction(expr,postfix)     # test가 필요할 경우만 사용
             temp = input()
-            if temp in operators and not is_operator:
-                is_right = False
-            if(is_operator):
-                is_operator = False
+            if temp in operators and not is_operator:   # 입력이 연산자이고 is_operator가 True가 아닌 경우
+                is_right = False        # 비정상적인 입력으로 판정하고 is_right에 False를 대입
+            if(is_operator):        # 입력을 받을 때마다 정상적인 입력인지 확인하기 위해 
+                is_operator = False # 번갈아가며 False, True변경
             else:
                 is_operator = True
             if(temp == "1225"):     # 이스터에그 : 크리스마스인 1225를 입력하면 발생
