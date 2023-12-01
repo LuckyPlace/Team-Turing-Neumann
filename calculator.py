@@ -64,7 +64,7 @@ def calc_postfix(postfix, tmp):     # postfix를 계산하는 함수
     return result
 
 def print_error():
-    print("ERROR!")
+    print("[SYSTEM] ERROR!")
     sys.exit()
 
 def clear(expr, postfix, dummy):
@@ -246,13 +246,13 @@ if __name__ == "__main__":
                     break
                 else:               # 아닐 경우 표준 에러 출력
                     print_error()
-            if(temp == "7503"):     # 이스터에그
+            if temp == "7503":     # 이스터에그
                 print("이스터에그")
                 break
-            if(temp == "1015"):     # 개교기념일 이스터에그
+            if temp == "1015":     # 개교기념일 이스터에그
                 print("개교기념일 이스터에그")
                 break
-            if(temp == '='):        # '='가 입력된 경우 지금까지 입력된 expr을 함수에 전달해 계산
+            if temp == '=':        # '='가 입력된 경우 지금까지 입력된 expr을 함수에 전달해 계산
                 if not expr:       # 아무것도 입력하지 않고 '='를 입력한 경우
                     print_error()
                 if not is_right:
