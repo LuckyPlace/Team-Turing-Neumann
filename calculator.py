@@ -87,10 +87,6 @@ def factorial(expr):
         result *= i
     return result
 
-class testFactorial(unittest.TestCase):
-    def testPrint(self):
-        self.assert_called_with
-
 def testfunction(expr, postfix):
 
     dummy = []
