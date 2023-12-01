@@ -56,7 +56,6 @@ def clear(expr, postfix, dummy):
 
 def factorial(expr):
     num = int(expr[-1])
-    print(len(expr))
     if num == 0 :
         return 1
     if num < 0:
