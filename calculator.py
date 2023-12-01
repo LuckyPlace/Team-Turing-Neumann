@@ -1,5 +1,6 @@
 import random
 import sys
+import unittest
 
 random.seed(0,2)
 
@@ -55,19 +56,23 @@ def clear(expr, postfix, dummy):
     dummy.clear()
 
 def factorial(expr):
+    result = 1
     num = int(expr[-1])
     if num == 0 :
         return 1
     if num < 0:
-        print("[ERROR] Out Of Range")
-        sys.exit()
+        result = "[ERROR] Out Of Range"
+        return result
     if len(expr) >= 2:
-        print("[ERROR] Input Error")
-        sys.exit()
-    result = 1
+        result = "[ERROR] Input Error"
+        return result
     for i in range(1, num + 1):
         result *= i
     return result
+
+class testFactorial(unittest.TestCase):
+    def testPrint(self):
+        self.assert_called_with
 
 def testfunction(expr, postfix):
 
@@ -218,7 +223,10 @@ if __name__ == "__main__":
             if temp == "!":
                 if not expr:
                     print_error()
-                result = factorial(expr)
+                result = str(factorial(expr))
+                if not result.isdigit():
+                    print(result)
+                    break
                 temp = input()
                 if temp == "=":     #팩토리얼 이후에 '='이 입력되었을 때 결과 출력
                     print(result)
