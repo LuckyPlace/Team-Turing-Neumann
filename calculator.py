@@ -215,8 +215,13 @@ if __name__ == "__main__":
             if temp == "!":
                 if not expr:
                     print_error()
-                print(factorial(expr))
-                break
+                result = factorial(expr)
+                temp = input()
+                if temp == "=":
+                    print(result)
+                    break
+                else:
+                    print_error()
             if(temp == "7503"):     # 이스터에그
                 print("이스터에그")
                 break
