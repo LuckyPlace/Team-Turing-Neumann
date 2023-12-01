@@ -54,6 +54,18 @@ def clear(expr, postfix, dummy):
     expr.clear()
     dummy.clear()
 
+def factorial(expr):
+    num = int(expr[-1])
+    if num == 0 :
+        return 1
+    if num < 0:
+        print("[ERROR] Out Of Range")
+        sys.exit()
+    result = 1
+    for i in range(1, num + 1):
+        result *= i
+    return result
+
 def testfunction(expr, postfix):
 
     dummy = []
@@ -188,7 +200,7 @@ if __name__ == "__main__":
     ans = 0             # 답 임시 저장 변수
     is_operator = False     # 333++같이 연속으로 숫자가 나오는 경우를 막기 위한 변수
     is_right = True
-    operators = ['+', '-', '*']
+    operators = ['+', '-', '*', '!']
 
     while True :
         try:
@@ -200,8 +212,16 @@ if __name__ == "__main__":
                 is_operator = False # 번갈아가며 False, True변경
             else:
                 is_operator = True
-            if(temp == "1225"):     # 이스터에그 : 크리스마스인 1225를 입력하면 발생
-                print("허허 메리 크리스마스")
+            if temp == "!":
+                if not expr:
+                    print_error()
+                print(factorial(expr))
+                break
+            if(temp == "7503"):     # 이스터에그
+                print("이스터에그")
+                break
+            if(temp == "1015"):     # 개교기념일 이스터에그
+                print("개교기념일 이스터에그")
                 break
             if(temp == '='):        # '='가 입력된 경우 지금까지 입력된 expr을 함수에 전달해 계산
                 if not expr:       # 아무것도 입력하지 않고 '='를 입력한 경우
