@@ -1,5 +1,23 @@
 import random
 import sys
+import unittest
+
+class TestZero(unittest.TestCase):
+    def test(self):
+        a = []
+        a.append(0)
+        self.assertEqual(factorial(a),1)
+class TestNegative(unittest.TestCase):
+    def test(self):
+        a = []
+        a.append(-1)
+        self.assertEqual(factorial(a), "[ERROR] Out Of Range")
+class TestImproper(unittest.TestCase):
+    def test(self):
+        a = []
+        a.append(2)
+        a.append(4)
+        self.assertEqual(factorial(a),"[ERROR] Input Error")
 
 random.seed(0,2)
 
@@ -60,6 +78,9 @@ def factorial(expr):
         return 1
     if num < 0:
         print("[ERROR] Out Of Range")
+        sys.exit()
+    if len(expr) >= 2:
+        print("[ERROR] Input Error")
         sys.exit()
     result = 1
     for i in range(1, num + 1):
@@ -215,8 +236,13 @@ if __name__ == "__main__":
             if temp == "!":
                 if not expr:
                     print_error()
-                print(factorial(expr))
-                break
+                result = factorial(expr)
+                temp = input()
+                if temp == "=":     #팩토리얼 이후에 '='이 입력되었을 때 결과 출력
+                    print(result)
+                    break
+                else:               # 아닐 경우 표준 에러 출력
+                    print_error()
             if(temp == "7503"):     # 이스터에그
                 print("이스터에그")
                 break
