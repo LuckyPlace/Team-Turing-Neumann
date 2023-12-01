@@ -56,10 +56,14 @@ def clear(expr, postfix, dummy):
 
 def factorial(expr):
     num = int(expr[-1])
+    print(len(expr))
     if num == 0 :
         return 1
     if num < 0:
         print("[ERROR] Out Of Range")
+        sys.exit()
+    if len(expr) >= 2:
+        print("[ERROR] Input Error")
         sys.exit()
     result = 1
     for i in range(1, num + 1):
@@ -217,10 +221,10 @@ if __name__ == "__main__":
                     print_error()
                 result = factorial(expr)
                 temp = input()
-                if temp == "=":
+                if temp == "=":     #팩토리얼 이후에 '='이 입력되었을 때 결과 출력
                     print(result)
                     break
-                else:
+                else:               # 아닐 경우 표준 에러 출력
                     print_error()
             if(temp == "7503"):     # 이스터에그
                 print("이스터에그")
