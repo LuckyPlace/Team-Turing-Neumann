@@ -271,10 +271,10 @@ if __name__ == "__main__":
                 else:               # 아닐 경우 표준 에러 출력
                     print_error()
             if temp == "7503":     # 이스터에그
-                print("이스터에그")
+                print('[EVENT] "안녕! 7503은 사용할 수 없는 숫자야"')
                 break
             if temp == "1015":     # 개교기념일 이스터에그
-                print("개교기념일 이스터에그")
+                print("[EVENT] 전북대 개교기념일입니다.")
                 break
             if temp == '=':        # '='가 입력된 경우 지금까지 입력된 expr을 함수에 전달해 계산
                 if not expr:       # 아무것도 입력하지 않고 '='를 입력한 경우
