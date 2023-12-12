@@ -15,7 +15,6 @@ class TestProper(unittest.TestCase):
         a = []
         a.append(10)
         self.assertEqual(factorial(a),3628800)
-
 class TestBig(unittest.TestCase):
     def test_big(self):
         a = []
@@ -37,7 +36,6 @@ class TestImproper(unittest.TestCase):
         a.append(2)
         a.append(4)
         self.assertEqual(factorial(a),"[ERROR] Input Error")
-
 class Testrespone_priortyeop(unittest.TestCase):
     def testplus(self):
         input1 = '+'
@@ -48,7 +46,10 @@ class Testrespone_priortyeop(unittest.TestCase):
     def testmultiply(self):
         input3 = '*'
         self.assertEqual(op_priority(input3),2)
-
+    def testNone(self):
+        input3 = '/'
+        self.assertFalse(op_priority(input3))
+    
 class Testinfix_to_postfix(unittest.TestCase):
     def test1(self):
         expr_test1 = [2,'*',4,'+',6,'*',8]
@@ -72,7 +73,6 @@ class Testinfix_to_postfix(unittest.TestCase):
         postfix10 = []
         infix_to_postfix(expr_test1,postfix10)
         self.assertNotEqual(postfix10,test_postfix1)
-
 class Testcalc_postfix(unittest.TestCase):
     def test1(self):
         test_postfix1 = [2,4,'*',6,8,'*','+']
@@ -83,7 +83,7 @@ class Testcalc_postfix(unittest.TestCase):
         test_postfix1 = [2,2,'*',2,2,'*','+',2,2,'*','+',2,2,'*',2,'*',2,'*',2,'*',2,'*','+',2,2,'*',2,'*',2,'*',2,'*',2,'*',2,'*',2,'*',2,'*',2,'*','+',2,'+']
         tmp_test = []
         self.assertEqual(calc_postfix(test_postfix1,tmp_test),1102)
-        
+
 random.seed(0,2)
 
 def op_priority(op):       # 연산자의 우선순위를 결정하는 함수
