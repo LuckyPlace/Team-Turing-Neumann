@@ -15,6 +15,7 @@ class TestProper(unittest.TestCase):
         a = []
         a.append(10)
         self.assertEqual(factorial(a),3628800)
+
 class TestBig(unittest.TestCase):
     def test_big(self):
         a = []
@@ -37,6 +38,42 @@ class TestImproper(unittest.TestCase):
         a.append(4)
         self.assertEqual(factorial(a),"[ERROR] Input Error")
 
+class Testrespone_priortyeop(unittest.TestCase):
+    def testplus(self):
+        input1 = '+'
+        self.assertEqual(op_priority(input1),1)
+    def testminus(self):
+        input2 = '-'
+        self.assertEqual(op_priority(input2),1)
+    def testmultiply(self):
+        input3 = '*'
+        self.assertEqual(op_priority(input3),2)
+
+class Testinfix_to_postfix(unittest.TestCase):
+    def test1(self):
+        expr_test1 = [2,'*',4,'+',6,'*',8]
+        test_postfix1 = [2,4,'*',6,8,'*','+']
+        postfix10 = []
+        infix_to_postfix(expr_test1,postfix10)
+        self.assertEqual(postfix10,test_postfix1)
+    def test2(self):
+        expr_test2 = [2,'*',2,'+',2,'*',2,'+',2,'*',2,'+',2,'*',2,'*',2,'*',2,'*',2,'*',2,'+',2,'*',2,'*',2,'*',2,'*',2,'*',2,'*',2,'*',2,'*',2,'*',2,'+',2]
+        test_postfix2 = [2,2,'*',2,2,'*','+',2,2,'*','+',2,2,'*',2,'*',2,'*',2,'*',2,'*','+',2,2,'*',2,'*',2,'*',2,'*',2,'*',2,'*',2,'*',2,'*',2,'*','+',2,'+']
+        postfix11 = []
+        infix_to_postfix(expr_test2,postfix11)
+        self.assertEqual(postfix11,test_postfix2)
+            
+class Testcalc_postfix(unittest.TestCase):
+    def test1(self):
+        test_postfix1 = [2,4,'*',6,8,'*','+']
+        tmp_test = []
+        self.assertEqual(calc_postfix(test_postfix1,tmp_test),56)
+        
+    def test2(self):
+        test_postfix1 = [2,2,'*',2,2,'*','+',2,2,'*','+',2,2,'*',2,'*',2,'*',2,'*',2,'*','+',2,2,'*',2,'*',2,'*',2,'*',2,'*',2,'*',2,'*',2,'*',2,'*','+',2,'+']
+        tmp_test = []
+        self.assertEqual(calc_postfix(test_postfix1,tmp_test),1102)
+        
 random.seed(0,2)
 
 def op_priority(op):       # 연산자의 우선순위를 결정하는 함수
@@ -241,10 +278,10 @@ if __name__ == "__main__":
     is_right = True
     operators = ['+', '-', '*', '!']
 
-    # suite = unittest.TestSuite()
-    # suite.addTest(unittest.TestLoader().loadTestsFromTestCase(TestBig))
-    # unittest.TextTestRunner().run(suite)
-    # sys.exit(0)
+    #suite = unittest.TestSuite()
+    #suite.addTest(unittest.TestLoader().loadTestsFromTestCase(Testinfix_to_postfix))
+    #unittest.TextTestRunner().run(suite)
+    #sys.exit(0)
     # unittest.main(exit=True)
 
     while True :
