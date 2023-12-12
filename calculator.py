@@ -62,7 +62,17 @@ class Testinfix_to_postfix(unittest.TestCase):
         postfix11 = []
         infix_to_postfix(expr_test2,postfix11)
         self.assertEqual(postfix11,test_postfix2)
-            
+    def test3(self):
+        expr_test1 = [2,'*',4,'/',6,'*',8]
+        postfix10 = []
+        self.assertFalse(infix_to_postfix(expr_test1,postfix10))
+    def test4(self):
+        expr_test1 = [2,'*',4,'-',6,'*',8,'+',1]
+        test_postfix1 = [2,4,'*',6,8,'*','-','+',1]
+        postfix10 = []
+        infix_to_postfix(expr_test1,postfix10)
+        self.assertNotEqual(postfix10,test_postfix1)
+
 class Testcalc_postfix(unittest.TestCase):
     def test1(self):
         test_postfix1 = [2,4,'*',6,8,'*','+']
@@ -282,7 +292,7 @@ if __name__ == "__main__":
     #suite.addTest(unittest.TestLoader().loadTestsFromTestCase(Testinfix_to_postfix))
     #unittest.TextTestRunner().run(suite)
     #sys.exit(0)
-    # unittest.main(exit=True)
+    unittest.main(exit=True)
 
     while True :
         try:
