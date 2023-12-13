@@ -36,7 +36,7 @@ class TestImproper(unittest.TestCase):
         a.append(2)
         a.append(4)
         self.assertEqual(factorial(a),"[ERROR] Input Error")
-class Testrespone_priortyeop(unittest.TestCase):
+class Test_op_priorty(unittest.TestCase):
     def testplus(self):
         input1 = '+'
         self.assertEqual(op_priority(input1),1)
@@ -50,7 +50,7 @@ class Testrespone_priortyeop(unittest.TestCase):
         input3 = '/'
         self.assertFalse(op_priority(input3))
     
-class Testinfix_to_postfix(unittest.TestCase):
+class Test_infix_to_postfix(unittest.TestCase):
     def test1(self):
         expr_test1 = [2,'*',4,'+',6,'*',8]
         test_postfix1 = [2,4,'*',6,8,'*','+']
@@ -73,7 +73,7 @@ class Testinfix_to_postfix(unittest.TestCase):
         postfix10 = []
         infix_to_postfix(expr_test1,postfix10)
         self.assertNotEqual(postfix10,test_postfix1)
-class Testcalc_postfix(unittest.TestCase):
+class Test_calc_postfix(unittest.TestCase):
     def test1(self):
         test_postfix1 = [2,4,'*',6,8,'*','+']
         tmp_test = []
