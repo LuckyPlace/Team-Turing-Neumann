@@ -105,17 +105,17 @@ def infix_to_postfix(expr, postfix): # infix를 postfix로 바꾸는 함수
     while stack:
         postfix.append(stack.pop())     # stack에 남아있는 연산자들을 postfix list에 추가한다.
 
-def calc_postfix(postfix, tmp):     # postfix를 계산하는 함수
+def calc_postfix(postfix, calc_stack):     # postfix를 계산하는 함수
     result = 0
     if len(postfix) == 1:   # 입력이 정수 하나인 경우 ex. 5 = ?
-        tmp.append(int(postfix[0]))
-        result = tmp[-1]
+        calc_stack.append(int(postfix[0]))
+        result = calc_stack[-1]
         return result
     
     for token in postfix:
         if token in ['+', '-', '*']:
-            second = tmp.pop()
-            first = tmp.pop()
+            second = calc_stack.pop()
+            first = calc_stack.pop()
             op = token[0]
             if op == '+':       # +인 경우 계산
                 result = first + second
@@ -123,9 +123,9 @@ def calc_postfix(postfix, tmp):     # postfix를 계산하는 함수
                 result = first - second
             elif op == '*':     # *인 경우 계산
                 result = first * second
-            tmp.append(result)
+            calc_stack.append(result)
         else:
-            tmp.append(int(token))  # 올바른 수식이라면 계산 결과값을 tmp 스택에도 저장
+            calc_stack.append(int(token))  # 올바른 수식이라면 계산 결과값을 calc_stack에도 저장
     return result
 
 def print_error():
@@ -282,7 +282,7 @@ def testfunction(expr, postfix):
 if __name__ == "__main__":
     expr = []           # 식을 저장하기 위해 list 선언
     postfix = []        # infix를 postfix로 바꾼 표현을 저장하는 list 선언
-    tmp = []            # calc_postfix()함수에서 사용할 stack 선언
+    calc_stack = []            # calc_postfix()함수에서 사용할 stack 선언
     ans = 0             # 답 임시 저장 변수
     is_operator = False     # 333++같이 연속으로 숫자가 나오는 경우를 막기 위한 변수
     is_right = True
@@ -292,7 +292,7 @@ if __name__ == "__main__":
     #suite.addTest(unittest.TestLoader().loadTestsFromTestCase(Testinfix_to_postfix))
     #unittest.TextTestRunner().run(suite)
     #sys.exit(0)
-    unittest.main(exit=True)
+    #unittest.main(exit=True)
 
     while True :
         try:
@@ -329,8 +329,8 @@ if __name__ == "__main__":
                 if not is_right:
                     print_error()
                 infix_to_postfix(expr, postfix)
-                ans = calc_postfix(postfix, tmp)
-                if len(tmp) > 1:        # tmp list가 1보다 클 경우 숫자가 비정상적으로 많다.
+                ans = calc_postfix(postfix, calc_stack)
+                if len(calc_stack) > 1:        # tmp list가 1보다 클 경우 숫자가 비정상적으로 많다.
                     print_error()
                 print(ans)
                 break
